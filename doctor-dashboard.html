@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="doctor-style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showAppointments()">View Appointments</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="viewAppointments" class="page">
+            <h1>View All Appointments</h1>
+            <div id="appointments-list"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
+    <script src="doctor-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" onclick="showPage('home')">Home</a></li>
+                <li><a href="login.html" onclick="showPage('login')">Login</a></li>
+                <li><a href="register.html" onclick="showPage('register')">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="home" class="page">
+            <h1>Home</h1>
+            <!-- Home content here -->
+        </div>
+        <div id="login" class="page" style="display:none;">
+            <h1>Login</h1>
+            <h2> press login or register to continue</h2>
+        </div>
+        <div id="register" class="page" style="display:none;">
+            <h1>Register</h1>
+            <form id="register-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="user">User</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
+    <script src="js/scripts.js"></script>
+</body>
+</html>

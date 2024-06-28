@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showPage('bookAppointment')">Book Appointment</a></li>
+                <li><a href="#" onclick="showPage('sendMessage')">Send Message</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="bookAppointment" class="page">
+            <h1>Book Appointment</h1>
+            <form id="book-appointment-form">
+                <label for="doctor">Choose Doctor:</label>
+                <select id="doctor" name="doctor" required></select>
+
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+        </section>
+
+        <section id="sendMessage" class="page" style="display: none;">
+            <h1>Send Message</h1>
+            <form id="send-message-form">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
+    <script src="js/user-scripts.js"></script>
+</body>
+</html>

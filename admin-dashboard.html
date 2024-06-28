@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('viewAppointments')">View Appointments</a></li>
+                <li><a href="#" onclick="showPage('viewMessages')">View Messages</a></li>
+                <li><a href="#" onclick="showPage('addDoctor')">Add Doctor</a></li>
+                <li><a href="#" onclick="showPage('addAdmin')">Add Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="viewAppointments" class="page">
+            <h1>View All Appointments</h1>
+            <div id="appointments-list"></div>
+        </section>
+
+        <section id="viewMessages" class="page" style="display: none;">
+            <h1>View All Messages</h1>
+            <div id="messages-list"></div>
+        </section>
+
+        <section id="addDoctor" class="page" style="display: none;">
+            <h1>Add Doctor</h1>
+            <form id="add-doctor-form">
+                <label for="doctor-name">Name:</label>
+                <input type="text" id="doctor-name" name="name" required>
+                
+                <label for="doctor-email">Email:</label>
+                <input type="email" id="doctor-email" name="email" required>
+                
+                <label for="doctor-password">Password:</label>
+                <input type="password" id="doctor-password" name="password" required>
+                
+                <button type="submit">Add Doctor</button>
+            </form>
+        </section>
+
+        <section id="addAdmin" class="page" style="display: none;">
+            <h1>Add Admin</h1>
+            <form id="add-admin-form">
+                <label for="admin-name">Name:</label>
+                <input type="text" id="admin-name" name="name" required>
+                
+                <label for="admin-email">Email:</label>
+                <input type="email" id="admin-email" name="email" required>
+                
+                <label for="admin-password">Password:</label>
+                <input type="password" id="admin-password" name="password" required>
+                
+                <button type="submit">Add Admin</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hospital Management System</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to switch between dashboard sections
+            window.showPage = async (pageId) => {
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => page.style.display = 'none');
+                document.getElementById(pageId).style.display = 'block';
+
+                switch (pageId) {
+                    case 'viewAppointments':
+                        await fetchAppointments();
+                        break;
+                    case 'viewMessages':
+                        await fetchMessages();
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            // Fetch appointments from server
+            const fetchAppointments = async () => {
+                try {
+                    const response = await fetch('/api/appointments');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch appointments');
+                    }
+                    const appointments = await response.json();
+                    const appointmentsList = document.getElementById('appointments-list');
+                    appointmentsList.innerHTML = '';
+
+                    appointments.forEach(appointment => {
+                        const div = document.createElement('div');
+                        div.textContent = `Patient: ${appointment.patientName}, Date: ${appointment.date}, Time: ${appointment.time}`;
+                        appointmentsList.appendChild(div);
+                    });
+                } catch (error) {
+                    console.error('Error fetching appointments:', error);
+                    alert('An error occurred while fetching appointments. Please try again.');
+                }
+            };
+
+            // Fetch messages from server
+            const fetchMessages = async () => {
+                try {
+                    const response = await fetch('/api/messages');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch messages');
+                    }
+                    const messages = await response.json();
+                    const messagesList = document.getElementById('messages-list');
+                    messagesList.innerHTML = '';
+
+                    messages.forEach(message => {
+                        const div = document.createElement('div');
+                        div.textContent = `From: ${message.from}, Content: ${message.content}`;
+                        messagesList.appendChild(div);
+                    });
+                } catch (error) {
+                    console.error('Error fetching messages:', error);
+                    alert('An error occurred while fetching messages. Please try again.');
+                }
+            };
+
+            // Initial load: Show viewAppointments section by default
+            showPage('viewAppointments');
+        });
+    </script>
+</body>
+</html>
