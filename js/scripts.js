@@ -1,6 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
     const registerForm = document.getElementById("register-form");
+    const forgotPasswordForm = document.getElementById("forgot-password-form");
+
+    const showPasswordCheckboxLogin = document.getElementById("show-password");
+    const showPasswordCheckboxRegister = document.getElementById("show-password-register");
+
+    if (showPasswordCheckboxLogin) {
+        showPasswordCheckboxLogin.addEventListener("change", function() {
+            const passwordField = document.getElementById("password");
+            passwordField.type = this.checked ? "text" : "password";
+        });
+    }
+
+    if (showPasswordCheckboxRegister) {
+        showPasswordCheckboxRegister.addEventListener("change", function() {
+            const passwordField = document.getElementById("password");
+            passwordField.type = this.checked ? "text" : "password";
+        });
+    }
 
     if (loginForm) {
         loginForm.addEventListener("submit", async function(event) {
@@ -28,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         window.location.href = '/doctor-dashboard.html';
                     } else if (role === 'admin') {
                         window.location.href = '/admin-dashboard.html';
-
                     } else if (role === 'user'){
                         window.location.href = '/user-dashboard.html';
                     }
@@ -37,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred while trying to log in. Please try again later.');
+                alert('your password is incorrect! Please try again.');
             }
         });
     }
@@ -71,6 +88,35 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred while trying to register. Please try again later.');
+            }
+        });
+    }
+
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const email = event.target.email.value;
+
+            try {
+                const response = await fetch('/auth/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    const messageDiv = document.getElementById("message");
+                    messageDiv.style.display = 'block';
+                    messageDiv.textContent = 'Password reset instructions have been sent to your email.';
+                } else {
+                    throw new Error(result.message || 'Failed to send reset instructions. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while trying to reset the password. Please try again later.');
             }
         });
     }
