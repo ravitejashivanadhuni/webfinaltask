@@ -34,8 +34,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function sendMessage(event) {
         event.preventDefault();
-        const message = event.target.elements.message.value;
-        const from = 'User';  // Example: replace with actual sender information if needed
+        const content = event.target.elements.message.value;
+
+        // Example: replace with actual sender and recipient information
+        const senderId = '60c72b2f9b1d4c47d0c12345'; // Should be dynamically set based on logged-in user
+        const recipientId = '60c72b2f9b1d4c47d0c12346'; // Should be dynamically set based on recipient selection
 
         try {
             const response = await fetch('/api/send-message', {
@@ -43,12 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ from, content: message })
+                body: JSON.stringify({ sender: senderId, recipient: recipientId, content })
             });
 
             if (response.ok) {
                 alert('Message sent successfully!');
                 // Optionally, update UI or perform other actions after successful message send
+                event.target.reset(); // Clear the form
             } else {
                 throw new Error('Failed to send message');
             }
