@@ -411,7 +411,7 @@ app.post('/logout', (req, res) => {
 });
 
 // Start server
-const port = process.env.PORT || 7999;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
