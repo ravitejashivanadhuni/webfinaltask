@@ -5,7 +5,9 @@ const userSchema = new mongoose.Schema({
     name: String,
     email: { type: String, unique: true },
     password: String,
-    role: String // Add role field if it's part of your schema
+    role: String ,
+    resetPasswordToken: String,
+    resetPasswordExpires: Date// Add role field if it's part of your schema
 });
 
 // Method to compare hashed passwords
