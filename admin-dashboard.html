@@ -11,17 +11,16 @@
         <nav>
             <ul>
                 <li><a href="/" onclick="showPage('home')">Home</a></li>
-                <li><a href="#" onclick="showPage('viewAppointments')">View Appointments</a></li>
                 <li><a href="#" onclick="showPage('viewMessages')">View Messages</a></li>
-                <li><a href="#" onclick="showPage('addDoctor')">Add Doctor</a></li>
-                <li><a href="#" onclick="showPage('addAdmin')">Add Admin</a></li>
+                <li><a href="#" onclick="showPage('manageAppointments')">Manage Appointments</a></li>
+                <li><a href="#" onclick="showPage('manageDoctors')">Manage Doctors</a></li>
+                <li><a href="#" onclick="showPage('manageAdmins')">Manage Admins</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section id="viewAppointments" class="page">
-            <h1>View All Appointments</h1>
-            <div id="appointments-list"></div>
+        <section id="home" class="page">
+            <h1>Welcome to the Admin Dashboard</h1>
         </section>
 
         <section id="viewMessages" class="page" style="display: none;">
@@ -29,8 +28,13 @@
             <div id="messages-list"></div>
         </section>
 
-        <section id="addDoctor" class="page" style="display: none;">
-            <h1>Add Doctor</h1>
+        <section id="manageAppointments" class="page" style="display: none;">
+            <h1>Manage Appointments</h1>
+            <div id="appointments-list"></div>
+        </section>
+
+        <section id="manageDoctors" class="page" style="display: none;">
+            <h1>Manage Doctors</h1>
             <form id="add-doctor-form">
                 <label for="doctor-name">Name:</label>
                 <input type="text" id="doctor-name" name="name" required>
@@ -43,10 +47,17 @@
                 
                 <button type="submit">Add Doctor</button>
             </form>
+            <h2>Remove Doctor</h2>
+            <form id="remove-doctor-form">
+                <label for="remove-doctor-email">Email:</label>
+                <input type="email" id="remove-doctor-email" name="email" required>
+                
+                <button type="submit">Remove Doctor</button>
+            </form>
         </section>
 
-        <section id="addAdmin" class="page" style="display: none;">
-            <h1>Add Admin</h1>
+        <section id="manageAdmins" class="page" style="display: none;">
+            <h1>Manage Admins</h1>
             <form id="add-admin-form">
                 <label for="admin-name">Name:</label>
                 <input type="text" id="admin-name" name="name" required>
@@ -59,78 +70,18 @@
                 
                 <button type="submit">Add Admin</button>
             </form>
+            <h2>Remove Admin</h2>
+            <form id="remove-admin-form">
+                <label for="remove-admin-email">Email:</label>
+                <input type="email" id="remove-admin-email" name="email" required>
+                
+                <button type="submit">Remove Admin</button>
+            </form>
         </section>
     </main>
     <footer>
         <p>&copy; 2024 Hospital Management System</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Function to switch between dashboard sections
-            window.showPage = async (pageId) => {
-                const pages = document.querySelectorAll('.page');
-                pages.forEach(page => page.style.display = 'none');
-                document.getElementById(pageId).style.display = 'block';
-
-                switch (pageId) {
-                    case 'viewAppointments':
-                        await fetchAppointments();
-                        break;
-                    case 'viewMessages':
-                        await fetchMessages();
-                        break;
-                    default:
-                        break;
-                }
-            };
-
-            // Fetch appointments from server
-            const fetchAppointments = async () => {
-                try {
-                    const response = await fetch('/api/appointments');
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch appointments');
-                    }
-                    const appointments = await response.json();
-                    const appointmentsList = document.getElementById('appointments-list');
-                    appointmentsList.innerHTML = '';
-
-                    appointments.forEach(appointment => {
-                        const div = document.createElement('div');
-                        div.textContent = `Patient: ${appointment.patientName}, Date: ${appointment.date}, Time: ${appointment.time}`;
-                        appointmentsList.appendChild(div);
-                    });
-                } catch (error) {
-                    console.error('Error fetching appointments:', error);
-                    alert('An error occurred while fetching appointments. Please try again.');
-                }
-            };
-
-            // Fetch messages from server
-            const fetchMessages = async () => {
-                try {
-                    const response = await fetch('/api/messages');
-                    if (!response.ok) {
-                        throw new Error('Failed to fetch messages');
-                    }
-                    const messages = await response.json();
-                    const messagesList = document.getElementById('messages-list');
-                    messagesList.innerHTML = '';
-
-                    messages.forEach(message => {
-                        const div = document.createElement('div');
-                        div.textContent = `From: ${message.from}, Content: ${message.content}`;
-                        messagesList.appendChild(div);
-                    });
-                } catch (error) {
-                    console.error('Error fetching messages:', error);
-                    alert('An error occurred while fetching messages. Please try again.');
-                }
-            };
-
-            // Initial load: Show viewAppointments section by default
-            showPage('viewAppointments');
-        });
-    </script>
+    <script src="admin-script.js"></script>
 </body>
 </html>
