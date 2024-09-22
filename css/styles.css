@@ -1,5 +1,9 @@
 body {
+    background-image: url("https://img.freepik.com/premium-photo/modern-stethoscope-medical-equipment-green-background_582637-1153.jpg");
     font-family: Arial, sans-serif;
+    height:100vh;
+    width:100vw;
+    background-size: cover;
     margin: 0;
     padding: 0;
     background-color: #f0f4f7; /* Light gray background */
@@ -40,9 +44,10 @@ nav ul li a:hover {
 main {
     padding: 2em;
     text-align: center;
-    max-width: 800px;
+    max-width: 1000px;
+    height:450px;
     margin: 2em auto;
-    background-color: white;
+    background-color: rgba(65, 87, 68, 0.19);
     border-radius: 10px; /* Rounded corners for main content */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
 }
